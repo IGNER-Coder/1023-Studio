@@ -3,7 +3,6 @@ import { Fraunces, Inter } from 'next/font/google'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import { client } from '@/sanity/lib/client'
-import { urlFor } from '@/sanity/lib/image'
 import { SITE_SETTINGS_QUERY } from '@/sanity/lib/queries'
 import './globals.css'
 
@@ -27,34 +26,26 @@ export async function generateMetadata(): Promise<Metadata> {
   const siteName = settings?.siteName ?? '1023 Studios'
   const description = settings?.tagline ?? 'A visual documentation practice based in Nairobi.'
 
-  const ogImages = settings?.defaultSeoImage
-    ? [
-        {
-          url: urlFor(settings.defaultSeoImage).width(1200).height(630).quality(85).auto('format').url(),
-          width: 1200,
-          height: 630,
-          alt: siteName,
-        },
-      ]
-    : []
-
   return {
+    metadataBase: new URL('https://1023studios.com'),
     title: {
       default: siteName,
       template: `%s — ${siteName}`,
     },
     description,
     openGraph: {
+      title: siteName,
+      description,
       siteName,
       type: 'website',
       locale: 'en_KE',
-      description,
-      images: ogImages,
+      images: [{ url: '/og-default.jpg', width: 1200, height: 630, alt: siteName }],
     },
     twitter: {
       card: 'summary_large_image',
+      title: siteName,
       description,
-      images: ogImages.map((img) => img.url),
+      images: ['/og-default.jpg'],
     },
   }
 }

@@ -46,7 +46,7 @@ export async function generateMetadata({
   if (!project) return { title: 'Not found' }
   return {
     title: `${project.title}${project.subtitle ? ' ' + project.subtitle : ''}`,
-    description: project.venue,
+    description: `${project.venue} · ${project.dateDisplay}. Documented by 1023 Studios.`,
   }
 }
 
