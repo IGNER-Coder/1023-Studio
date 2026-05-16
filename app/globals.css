@@ -1,26 +1,83 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-paper: #FAFAF7;
+  --color-ink: #1A1A1A;
+  --color-dust: #6B6B68;
+  --color-terracotta: #B5533C;
+  --color-ink-soft: #444441;
+  --color-rule: rgba(0, 0, 0, 0.1);
+
+  --tracking-meta: 0.18em;
+  --tracking-meta-tight: 0.1em;
 }
 
+/* Fonts reference CSS variables injected by next/font on <html> */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-serif: var(--font-fraunces), Georgia, serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ============================================================
+   Reusable semantic utilities
+   ============================================================ */
+@layer utilities {
+  /* Large serif display heading — used on h1s */
+  .display {
+    font-family: var(--font-serif);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+  }
+
+  /* Small all-caps label in ink — section headings, labels */
+  .meta {
+    font-size: 11px;
+    letter-spacing: var(--tracking-meta);
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  /* Hide scrollbar while keeping scroll functionality */
+  .scrollbar-none {
+    scrollbar-width: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Same as .meta but in dust — captions, secondary info */
+  .meta-muted {
+    font-size: 10px;
+    letter-spacing: var(--tracking-meta);
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--color-dust);
   }
 }
 
+/* ============================================================
+   Global base styles
+   ============================================================ */
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: #1A1A1A;
+  color: #FAFAF7;
+}
+
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 1px solid #1A1A1A;
+  outline-offset: 2px;
 }

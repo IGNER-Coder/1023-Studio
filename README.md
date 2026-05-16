@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 1023 Studios
 
-## Getting Started
+A visual documentation practice website — exhibitions, studio visits, and cultural moments from Nairobi and beyond.
 
-First, run the development server:
+## Tech stack
+
+- **Framework**: Next.js 16 (App Router, TypeScript)
+- **CMS**: Sanity v3 (embedded Studio at `/studio`)
+- **Styles**: Tailwind CSS v4
+- **Email**: Resend (contact form)
+- **Deployment**: Vercel
+
+## Setup
 
 ```bash
+git clone <repo-url>
+cd 1023-studios
+npm install
+cp .env.example .env.local   # then fill in your values
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Site: [http://localhost:3000](http://localhost:3000)
+- Studio: [http://localhost:3000/studio](http://localhost:3000/studio)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+See `.env.example` for required environment variables.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Content model
 
-## Learn More
+| Type | Description |
+|---|---|
+| `project` | Archive entries — exhibitions, studio visits, editorial. Has gallery, participants, context note. |
+| `initiative` | Ongoing or forthcoming studio projects with rich body text. |
+| `aboutPage` | Singleton. Practice statement, team, collaborators, practice areas. |
+| `contactPage` | Singleton. Contact details surfaced on the contact page. |
+| `siteSettings` | Singleton. Site name, tagline, default share image, footer copyright. |
 
-To learn more about Next.js, take a look at the following resources:
+## Deploy
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Push to GitHub and import the repo into [Vercel](https://vercel.com)
+2. Add all env vars from `.env.example` in Vercel → Project → Settings → Environment Variables
+3. In Sanity: manage.sanity.io → your project → API → CORS Origins → add your Vercel production URL
+4. Set your production domain in `app/sitemap.ts` and `app/robots.ts` (currently `https://1023studios.com`)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Contact form
 
-## Deploy on Vercel
+The contact form sends via Resend. To use a custom sender address (e.g. `hello@1023studios.com`), verify your domain in the Resend dashboard and update the `from` field in `app/api/contact/route.ts`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Design and development by [Your Name]
